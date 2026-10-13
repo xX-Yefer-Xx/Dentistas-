@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Dental Sonrisa Azul</title>
+<meta name="description" content="Clínica dental profesional: limpieza, ortodoncia, blanqueamiento e implantes.">
+<style>
+  :root {
+    --azul-pastel: #a9c6dc;
+    --azul-suave: #c9dcea;
+    --azul-profundo: #7fa3bf;
+    --blanco: #fbfcfd;
+    --gris-texto: #2f3a44;
+    --gris-suave: #6b7785;
+    --sombra: 0 10px 30px rgba(60, 90, 120, 0.08);
+    --radio: 28px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    background: var(--blanco);
+    color: var(--gris-texto);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .contenedor {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+  }
+
+  /* ---------- Animaciones ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* ---------- Navegación ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(251, 252, 253, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e6edf3;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--gris-texto);
+    text-decoration: none;
+  }
+  .logo-icono {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--azul-suave);
+    display: grid; place-items: center;
+  }
+  .menu {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+  }
+  .menu a {
+    text-decoration: none;
+    color: var(--gris-suave);
+    font-size: .95rem;
+    transition: color .3s;
+  }
+  .menu a:hover { color: var(--gris-texto); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 90px 0 80px;
+    background: linear-gradient(160deg, #eef4f9 0%, var(--blanco) 60%);
+  }
+  .hero .contenedor {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .etiqueta {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--azul-suave);
+    color: var(--azul-profundo);
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .hero p {
+    color: var(--gris-suave);
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+    max-width: 520px;
+  }
+  .acciones { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .98rem;
+    transition: transform .3s, box-shadow .3s, background .3s;
+  }
+  .btn:hover { transform: translateY(-3px); }
+  .btn-principal {
+    background: var(--azul-pastel);
+    color: var(--gris-texto);
+    box-shadow: var(--sombra);
+  }
+  .btn-principal:hover { background: var(--azul-profundo); color: #fff; }
+  .btn-secundario {
+    border: 1.5px solid var(--azul-pastel);
+    color: var(--gris-texto);
+  }
+  .btn-secundario:hover { background: var(--azul-suave); }
+
+  .hero-imagen {
+    position: relative;
+    border-radius: 200px 200px var(--radio) var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    aspect-ratio: 4 / 5;
+    background: linear-gradient(135deg, var(--azul-suave), var(--azul-pastel));
+    display: grid;
+    place-items: center;
+  }
+  .hero-imagen img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .tarjeta-flotante {
+    position: absolute;
+    bottom: 24px; left: 24px;
+    background: rgba(255,255,255,.92);
+    padding: 14px 18px;
+    border-radius: 18px;
+    box-shadow: var(--sombra);
+    display: flex; align-items: center; gap: 12px;
+    animation: flotar 5s ease-in-out infinite;
+  }
+  .tarjeta-flotante strong { display: block; font-size: 1.05rem; }
+  .tarjeta-flotante span { font-size: .8rem; color: var(--gris-suave); }
+
+  /* ---------- Iconos ---------- */
+  .icono {
+    width: 26px; height: 26px;
+    stroke: #1d1d1f;
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- Secciones ---------- */
+  section { padding: 90px 0; }
+  .titulo-seccion { text-align: center; margin-bottom: 56px; }
+  .titulo-seccion h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 12px;
+  }
+  .titulo-seccion p { color: var(--gris-suave); max-width: 600px; margin: 0 auto; }
+
+  /* Descripción */
+  .descripcion { background: var(--blanco); }
+  .descripcion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .descripcion-texto p {
+    color: var(--gris-suave);
+    margin-bottom: 18px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 30px;
+  }
+  .stat {
+    background: #f1f6fa;
+    border-radius: 22px;
+    padding: 20px 14px;
+    text-align: center;
+  }
+  .stat strong { display: block; font-size: 1.5rem; color: var(--gris-texto); }
+  .stat span { font-size: .8rem; color: var(--gris-suave); }
+  .descripcion-imagen {
+    border-radius: var(--radio) 60px var(--radio) 60px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(160deg, var(--azul-suave), #e7f0f7);
+    box-shadow: var(--sombra);
+  }
+
+  /* Servicios */
+  .servicios { background: #f4f8fb; }
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+  }
+  .servicio {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px 26px;
+    box-shadow: var(--sombra);
+    transition: transform .4s, box-shadow .4s;
+  }
+  .servicio:hover { transform: translateY(-6px); }
+  .servicio .icono-caja {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--azul-suave);
+    display: grid; place-items: center;
+    margin-bottom: 18px;
+  }
+  .servicio h3 { font-size: 1.1rem; margin-bottom: 8px; }
+  .servicio p { color: var(--gris-suave); font-size: .95rem; }
+
+  /* Reseñas */
+  .resenas-resumen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 44px;
+  }
+  .puntuacion {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--gris-texto);
+  }
+  .estrellas { color: #9cc3dd; font-size: 1.6rem; letter-spacing: 4px; }
+  .resenas-resumen small { color: var(--gris-suave); }
+  .resenas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+  }
+  .resena {
+    background: var(--blanco);
+    border: 1px solid #e6edf3;
+    border-radius: 24px;
+    padding: 28px;
+  }
+  .resena .estrellas { font-size: 1rem; margin-bottom: 14px; }
+  .resena p { color: var(--gris-suave); font-size: .95rem; margin-bottom: 18px; }
+  .autor {
+    display: flex; align-items: center; gap: 12px;
+    font-size: .9rem; font-weight: 600;
+  }
+  .avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--azul-suave);
+    display: grid; place-items: center;
+    font-size: .85rem; color: var(--azul-profundo);
+  }
+
+  /* Contacto */
+  .contacto { background: #f4f8fb; }
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .contacto-item {
+    background: #fff;
+    border-radius: 24px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: var(--sombra);
+  }
+  .contacto-item .icono-caja {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--azul-suave);
+    display: grid; place-items: center;
+    margin: 0 auto 14px;
+  }
+  .contacto-item h3 { font-size: 1rem; margin-bottom: 6px; }
+  .contacto-item p { color: var(--gris-suave); font-size: .92rem; }
+
+  footer {
+    padding: 40px 0 110px;
+    text-align: center;
+    color: var(--gris-suave);
+    font-size: .88rem;
+    border-top: 1px solid #e6edf3;
+  }
+
+  /* ---------- Botón flotante WhatsApp ---------- */
+  .whatsapp-flotante {
+    position: fixed;
+    bottom: 22px;
+    left: 22px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px 12px 14px;
+    border-radius: 999px;
+    background: #cfe6f5;
+    color: var(--gris-texto);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .95rem;
+    box-shadow: 0 12px 30px rgba(60, 90, 120, .18);
+    transition: transform .3s, background .3s;
+    animation: aparecer .8s ease .4s both;
+  }
+  .whatsapp-flotante:hover { transform: translateY(-3px); background: #b9d9ec; }
+  .whatsapp-flotante .wa-icono {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #a6d4b4;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero .contenedor,
+    .descripcion-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 60px 0; }
+    .hero-imagen { max-width: 480px; margin: 0 auto; width: 100%; }
+    .descripcion-imagen { max-width: 420px; margin: 0 auto; width: 100%; }
+    .menu { display: none; }
+  }
+
+  @media (max-width: 520px) {
+    section { padding: 64px 0; }
+    .stats { grid-template-columns: 1fr; }
+    .acciones .btn { width: 100%; justify-content: center; }
+    .whatsapp-flotante { bottom: 16px; left: 16px; padding: 10px 16px 10px 10px; font-size: .85rem; }
+    .whatsapp-flotante .wa-icono { width: 34px; height: 34px; }
+    .tarjeta-flotante { left: 14px; bottom: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="contenedor">
+    <a href="#inicio" class="logo">
+      <span class="logo-icono">
+        <svg class="icono" viewBox="0 0 24 24"><path d="M12 21c-3-2.5-7-5.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.5-4 7.5-7 10z"/></svg>
+      </span>
+      Sonrisa Azul
+    </a>
+    <ul class="menu">
+      <li><a href="#descripcion">Clínica</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#resenas">Reseñas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <div class="hero" id="inicio">
+    <div class="contenedor">
+      <div class="reveal">
+        <span class="etiqueta">Odontología profesional</span>
+        <h1>Tu sonrisa, en las mejores manos</h1>
+        <p>Atención dental integral con tecnología moderna, un trato cercano y resultados que se notan desde la primera consulta.</p>
+        <div class="acciones">
+          <a class="btn btn-principal" href="https://wa.me/5215555555555?text=Hola%2C%20quisiera%20agendar%20una%20cita%20en%20la%20cl%C3%ADnica." target="_blank" rel="noopener">
+            <svg class="icono" viewBox="0 0 24 24" style="width:20px;height:20px"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+            Agendar cita
+          </a>
+          <a class="btn btn-secundario" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="hero-imagen">
+          <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=900&q=80" alt="Consultorio dental">
+          <div class="tarjeta-flotante">
+            <svg class="icono" viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8L3.5 9.2l5.9-.9z"/></svg>
+            <div><strong>4.8 estrellas</strong><span>Basado en reseñas de pacientes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESCRIPCIÓN -->
+  <section class="descripcion" id="descripcion">
+    <div class="contenedor descripcion-grid">
+      <div class="reveal descripcion-texto">
+        <span class="etiqueta">Sobre nosotros</span>
+        <h2 style="font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:18px;">Una clínica pensada para tu tranquilidad</h2>
+        <p>Somos una clínica dental con más de 10 años de experiencia dedicada al cuidado integral de la salud bucal. Nuestro equipo combina conocimiento clínico actualizado con un trato humano, para que cada visita sea cómoda y sin sorpresas.</p>
+        <p>Contamos con equipo de última generación, esterilización certificada y un enfoque preventivo que te ayuda a mantener tu sonrisa sana a largo plazo.</p>
+        <div class="stats">
+          <div class="stat"><strong>10+</strong><span>Años de experiencia</span></div>
+          <div class="stat"><strong>5k+</strong><span>Pacientes atendidos</span></div>
+          <div class="stat"><strong>4.8</strong><span>Calificación</span></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="descripcion-imagen">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=900&q=80" alt="Equipo de la clínica dental" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="servicios" id="servicios">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal">
+        <span class="etiqueta">Servicios</span>
+        <h2>Cuidado para cada etapa</h2>
+        <p>Tratamientos preventivos, estéticos y restauradores con atención personalizada.</p>
+      </div>
+      <div class="servicios-grid">
+        <div class="servicio reveal">
+          <div class="icono-caja">
+            <svg class="icono" viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Limpieza dental</h3>
+          <p>Eliminación de sarro y pulido para una boca fresca y saludable.</p>
+        </div>
+        <div class="servicio reveal">
+          <div class="icono-caja">
+            <svg class="icono" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>
+          </div>
+          <h3>Ortodoncia</h3>
+          <p>Brackets tradicionales y alineadores para corregir tu sonrisa.</p>
+        </div>
+        <div class="servicio reveal">
+          <div class="icono-caja">
+            <svg class="icono" viewBox="0 0 24 24"><path d="M12 3l2 5 5 .5-4 3.5 1.2 5L12 14.5 7.8 17l1.2-5-4-3.5 5-.5z"/></svg>
+          </div>
+          <h3>Blanqueamiento</h3>
+          <p>Tratamientos seguros para recuperar el brillo natural de tus dientes.</p>
+        </div>
+        <div class="servicio reveal">
+          <div class="icono-caja">
+            <svg class="icono" viewBox="0 0 24 24"><path d="M9 3v6l-3 3v6a3 3 0 0 0 6 0v-6l-3-3M15 21v-6l3-3V6a3 3 0 0 0-6 0v6l3 3"/></svg>
+          </div>
+          <h3>Implantes</h3>
+          <p>Soluciones duraderas para reemplazar piezas perdidas con naturalidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEÑAS -->
+  <section id="resenas">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal">
+        <span class="etiqueta">Reseñas</span>
+        <h2>Lo que dicen nuestros pacientes</h2>
+      </div>
+      <div class="resenas-resumen reveal">
+        <div class="puntuacion">4.8</div>
+        <div class="estrellas">★★★★★</div>
+        <small>Basado en más de 300 reseñas</small>
+      </div>
+      <div class="resenas-grid">
+        <div class="resena reveal">
+          <div class="estrellas">★★★★★</div>
+          <p>Excelente atención desde el primer momento. Me explicaron todo el tratamiento con calma.</p>
+          <div class="autor"><span class="avatar">MG</span> María G.</div>
+        </div>
+        <div class="resena reveal">
+          <div class="estrellas">★★★★★</div>
+          <p>Instalaciones impecables y muy puntuales. Mi limpieza fue rápida y sin molestias.</p>
+          <div class="autor"><span class="avatar">JR</span> Jorge R.</div>
+        </div>
+        <div class="resena reveal">
+          <div class="estrellas">★★★★☆</div>
+          <p>Hicieron mi blanqueamiento y el resultado superó mis expectativas. Muy recomendable.</p>
+          <div class="autor"><span class="avatar">AL</span> Ana L.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contacto" id="contacto">
+    <div class="contenedor">
+      <div class="titulo-seccion reveal">
+        <span class="etiqueta">Contacto</span>
+        <h2>Estamos para ayudarte</h2>
+      </div>
+      <div class="contacto-grid">
+        <div class="contacto-item reveal">
+          <div class="icono-caja">
+            <svg class="icono" viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/></svg>
+          </div>
+          <h3>Ubicación</h3>
+          <p>Av. Principal 123, Col. Centro</p>
+        </div>
+        <div class="contacto-item reveal">
+          <div class="icono-caja">
+            <svg class="icono" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h3>Horario</h3>
+          <p>Lunes a Sábado, 9:00 – 19:00</p>
+        </div>
+        <div class="contacto-item reveal">
+          <div class="icono-caja">
+            <svg class="icono" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg>
+          </div>
+          <h3>Teléfono</h3>
+          <p>+52 55 5555 5555</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    © 2026 Sonrisa Azul · Clínica Dental · Todos los derechos reservados
+  </div>
+</footer>
+
+<!-- Botón flotante WhatsApp (inferior izquierda) -->
+<a class="whatsapp-flotante" href="https://wa.me/5215555555555?text=Hola%2C%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios." target="_blank" rel="noopener">
+  <span class="wa-icono">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="#1d1d1f"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7a11.9 11.9 0 0 0 5.6 1.4h0c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.3zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4A9.9 9.9 0 0 1 2.1 11.9C2.1 6.4 6.5 2 12 2c2.7 0 5.2 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.5-4.5 9.9-9.9 9.9zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
+  </span>
+  Escríbenos
+</a>
+
+<script>
+  // Animación de aparición al hacer scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+</body>
+</html>
